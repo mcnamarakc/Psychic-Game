@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Guess what letter I'm thinking of!</h1>
+    <p id="computer"></p>
+    <p id="user"></p>
+    <p id="wins"></p>
+    <p id="losses"></p>
+    <p id="remainingGuess"></p>
+    <p id="wrongGuess"></p>
+
+    <script>
+        var wins = 0
+        var losses = 0
+        var chances = 10
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)]
+        var guesses = " "
+
+        var computerText = document.getElementById("computer")
+        var userText = document.getElementById("user")
+        var winsText = document.getElementById("wins")
+        var lossesText = document.getElementById("losses")
+        var ChancesText = document.getElementById("remainingGuess")
+        var wrongGuessText = document.getElementById("wrongGuess")
+
+        document.onkeyup = function(event) {
+            if (chances > 0) {
+                var userGuess = event.key
+                if (userGuess === computerGuess) {
+                    wins++
+                    chances = 10
+                    computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)]
+                    computerText.textContent = "Computer has chosen:" + computerGuess
+                    guesses = " "
+                } else {
+                    chances--
+                    guesses += " " + userGuess
+                    computerText.textContent = "Computer has chosen:"
+                }
+
+                userText.textContent = "User has chosen:" + userGuess
+                winsText.textContent = "Wins:" + wins
+                lossesText.textContent = "Losses:" + losses
+                ChancesText.textContent = "Remaining guesses:" + chances
+                wrongGuessText.textContent = "Incorrect guesses:" + guesses
+
+
+            } else {
+                losses++
+                chances = 10
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)]
+                computerText.textContent = "Computer has chosen:" + computerGuess
+                guesses = " "
+                userText.textContent = "User has chosen:"
+                lossesText.textContent = "Losses:" + losses
+                ChancesText.textContent = "Remaining guesses:" + chances
+                wrongGuessText.textContent = "Incorrect guesses:" + guesses
+            }
+
+        }
+    </script>
+</body>
+
+</html>
